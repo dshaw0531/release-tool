@@ -1,0 +1,51 @@
+<ngb-accordion [closeOthers]="true" activeIds="static-1">
+  <ngb-panel id="static-1" title="Release Title">
+    <ng-template ngbPanelContent>
+      Enter Release Name:
+      <input/>
+    </ng-template>
+  </ngb-panel>
+  <ngb-panel id="static-2" title="Open Service Dashboard">
+    <ng-template ngbPanelContent>
+      <ul>
+        <li>Generate diffs/compares for repos</li>
+        <li>merge crowdin branches
+          <ul>
+            <li>RLMS Legacy</li>
+            <li>Identity Service</li>
+            <li>Angular Website</li>
+          </ul>
+        </li>
+      </ul>  
+    </ng-template>
+  </ngb-panel>
+  <ngb-panel id="static-3" title="Choose Repos that will be included in the Release (based on the diffs generated in the Service Dashboard)">
+      <ng-template ngbPanelContent>
+        <input type="checkbox">RLMS Legacy<br>
+        <ul>
+          <ngb-accordion>
+            <ngb-panel id="legacy-products" title="RLMS Legacy Products">
+              <ng-template ngbPanelContent>
+                  <input type="checkbox">RLMS Website (Legacy)<br>
+                  <input type="checkbox">RLMS Reports<br>
+                  <input type="checkbox">Utilities<br>
+                  <input type="checkbox">Web Services<br>
+                  <input type="checkbox">Academy Services<br>
+                  <input type="checkbox">Relias Academy (Znode)<br>
+              </ng-template>
+            </ngb-panel>
+            </ngb-accordion>
+          </ul>
+        <input type="checkbox">RLMS Website (Angular)<br>
+        <input type="checkbox">RLMS API<br>
+        <input type="checkbox">RLMS Database<br>
+        <input type="checkbox">Enrollment Service<br>
+        <input type="checkbox">Internal Tools<br>
+        <input type="checkbox">User Management<br>
+        <input type="checkbox">Identity Service<br>
+        <input type="checkbox">Reporting Service<br>
+        <input type="checkbox">Learning Service<br>
+        <input type="checkbox">Reports (Internal)<br>
+      </ng-template>
+  </ngb-panel>
+</ngb-accordion>
