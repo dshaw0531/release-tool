@@ -18,31 +18,31 @@
   <strong>Copy files across to all servers: (this can happen any time after the release has been deployed from Bamboo, which typically happens 2 days prior to the US release)</strong>
   <ol type="1">
     <li>
-        Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong>
+      Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong>
     </li>
     <li>
-        Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)
+      Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)
     </li>
     <li>
-        For each box that has a release listed on only the first server repeat these steps:
-        <ol type="a">
-          <li>Right click on the release that is only on the first server</li>
-          <li>Click Copy</li>
-          <li>In the window that opens, click Run</li>
-          <li>When that is complete, close the window</li>
-          <li>Click the refresh link to the right of the box</li>
-          <li>Verify an 'x' shows for the newest release on all servers</li>
-        </ol>
+      For each box that has a release listed on only the first server repeat these steps:
+      <ol type="a">
+        <li>Right click on the release that is only on the first server</li>
+        <li>Click Copy</li>
+        <li>In the window that opens, click Run</li>
+        <li>When that is complete, close the window</li>
+        <li>Click the refresh link to the right of the box</li>
+        <li>Verify an 'x' shows for the newest release on all servers</li>
+      </ol>
     </li>
   </ol>
   <strong>For US only if Utilities will be deployed during the release:</strong> <br />
   The night prior to the release, disable the a long-running Utility:
   <ol type="1">
-      <li>Remote into <strong class="orange">[{{this.utilityServers[this.US]}}]</strong></li>
-      <li>Open Task Scheduler (Start > Task Scheduler)</li>
-      <li>Click on Task Scheduler Library in the left panel</li>
-      <li>Locate the task named RLMS.Utilities BoosterQuestionsLearnerEmail</li>
-      <li>Right click on it and select Disable</li>   
+    <li>Remote into <strong class="orange">[{{this.utilityServers[this.US]}}]</strong></li>
+    <li>Open Task Scheduler (Start > Task Scheduler)</li>
+    <li>Click on Task Scheduler Library in the left panel</li>
+    <li>Locate the task named RLMS.Utilities BoosterQuestionsLearnerEmail</li>
+    <li>Right click on it and select Disable</li>   
   </ol>
   <br />
   <strong>Notify #NextRelease that the release is beginning for specific environment</strong>
@@ -75,18 +75,18 @@
     </ol>
   </li>
   <li>
-      Change the connection to <strong class="orange">[{{getServers(this.reportConnections)}}]</strong> and execute the following scripts:
-      <ol type="a">
-        <li class="gold">LMSReport Schema script</li>
-        <li class="gold">LMSReport proc changes (execute with SQLCMD on)</li>
-      </ol>
+    Change the connection to <strong class="orange">[{{getServers(this.reportConnections)}}]</strong> and execute the following scripts:
+    <ol type="a">
+      <li class="gold">LMSReport Schema script</li>
+      <li class="gold">LMSReport proc changes (execute with SQLCMD on)</li>
+    </ol>
   </li>
   <li>
-      Change the connection to <strong class="orange">[{{getServers(this.report2Connections)}}]</strong> and execute the following scripts:
-      <ol type="a">
-        <li class="gold">LMSReport Schema script</li>
-        <li class="gold">LMSReport proc changes (execute with SQLCMD on)</li>
-      </ol>
+    Change the connection to <strong class="orange">[{{getServers(this.report2Connections)}}]</strong> and execute the following scripts:
+    <ol type="a">
+      <li class="gold">LMSReport Schema script</li>
+      <li class="gold">LMSReport proc changes (execute with SQLCMD on)</li>
+    </ol>
   </li>
 </ol>
 <strong>Website</strong>
@@ -192,13 +192,13 @@
   <li>Select 'Run whether user is logged on or not'</li>
   <li>Create a trigger to run at the specified time above.</li>
   <li>
-      Create an action to run the utility
-      <ol type="a">
-        <li>Action should be Start a Program</li>
-        <li>Browse program/script for S:\Relias\Utilities\RLMS.Utilities.exe</li>
-        <li>Add argument with the name of the utility</li>
-        <li>Click OK</li>
-      </ol>
+    Create an action to run the utility
+    <ol type="a">
+      <li>Action should be Start a Program</li>
+      <li>Browse program/script for S:\Relias\Utilities\RLMS.Utilities.exe</li>
+      <li>Add argument with the name of the utility</li>
+      <li>Click OK</li>
+    </ol>
   </li>
   <li>Click OK to save the new utility, you will be prompted to enter the credentials for the utility user. This password is: +74hEARHo1bBXjs+XjHzmMDB5uYZtpj1nI+95cF5ZBlZc4p7Byw9vkAy/R22mudz4r9cdPjmZ9Ly2LqYWFdVZg==</li>
 </ol>
@@ -237,7 +237,7 @@
 </ol>
 <strong>RLMS Reports</strong>
 <ol type="1">
-    <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+  <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
   <li>Open folder International: “S:\Relias\reports-drop” US: “C:\Relias\reports-drop”</li>
   <li>Right-click on “.\DeployReports.ps1” and Run with PowerShell</li>
 </ol>
