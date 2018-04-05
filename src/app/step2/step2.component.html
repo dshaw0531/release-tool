@@ -11,8 +11,12 @@
     </ng-template>
   </ngb-panel>
   <ngb-panel id="static-2" title="Administrative Tasks to Complete">
-      <ng-template ngbPanelContent>
+    <ng-template ngbPanelContent>
+      <ul>
+        <li>Using BitBucket, generate the diffs of all the changes between the release branch and the master branch for each repo identified in Step 1</li>
         <ul>
+          <li>Save these diffs as .html files to the relaase folder in SharePoint</li>
+        </ul>
         <li>(If rlms-database changes) Using Bitbucket, compare the rlms-database release branch to the master branch.</li>
         <li>Send link of diff to Systems Management (sysman@relias.com) (cc: Todd, AppSupport, your manager and any other people on your team that do releases) asking for DBA sign-off on schema and proc changes</li>
         <li>Once you receive a response, save a copy of the sign-off email to the release folder in SharePoint</li>
@@ -30,7 +34,7 @@
         </li>
       </ul>
 
-      <!-- <a href="/step3">On to Step 3</a> -->
+      <!-- <a href="/step3" type="button" class="btn btn-default">On to Step 3</a> -->
     </ng-template>
   </ngb-panel>
 </ngb-accordion>
