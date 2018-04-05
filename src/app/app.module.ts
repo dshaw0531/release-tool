@@ -13,12 +13,14 @@ import { environment } from '../environments/environment';
 import { Step3Component } from './step3/step3.component';
 import { StartComponent } from './start/start.component';
 import { ReleaseService } from './shared/release.service';
+import { Step4Component } from './step4/step4.component';
 
 const appRoutes: Routes = [
   { path: 'start', component: StartComponent },
   { path: 'step1', component: Step1Component },
   { path: 'step2', component: Step2Component },
   { path: 'step3', component: Step3Component },
+  { path: 'step4', component: Step4Component },
   { path: 'word', component: GenerateWordDocComponent },
   { path: '**', redirectTo: 'start', pathMatch: 'full' }
 ];
@@ -29,6 +31,7 @@ const appRoutes: Routes = [
     Step1Component,
     Step2Component,
     Step3Component,
+    Step4Component,
     GenerateWordDocComponent,
     StartComponent
   ],
