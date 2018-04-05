@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +7,4 @@ import { AngularFireList } from 'angularfire2/database';
 })
 export class AppComponent {
   title = 'RLMS Release Tool';
-  item: AngularFireList<any[]>;
 }

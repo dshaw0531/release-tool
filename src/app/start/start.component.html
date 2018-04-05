@@ -2,8 +2,8 @@
   <a href="/step1" type="button" class="btn btn-default" style="margin-bottom:1%">Create New Release</a>
   <h5>Select Existing Release</h5>
   <ul class="list-group">
-    <li class="list-group-item" >
-      <a href="/step1"><b>Release Name</b></a>
+    <li class="list-group-item" *ngFor="let release of releases">
+      <a href="/step1"><b>{{ release.name }}</b></a>
     </li>
   </ul>
 </div>

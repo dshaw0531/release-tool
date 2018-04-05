@@ -6,7 +6,7 @@ export class ReleaseService {
   releases: AngularFireList<any[]>;
 
   constructor(public af: AngularFireDatabase) {
-    this.releases = af.list('/releases');
+    this.releases = af.list<any[]>('/releases');
   }
 
   addRelease(release: any) {
