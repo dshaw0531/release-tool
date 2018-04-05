@@ -18,6 +18,7 @@ import { Step4Component } from './step4/step4.component';
 const appRoutes: Routes = [
   { path: 'start', component: StartComponent },
   { path: 'step1', component: Step1Component },
+  { path: 'step1/:id', component: Step1Component },
   { path: 'step2', component: Step2Component },
   { path: 'step3', component: Step3Component },
   { path: 'step4', component: Step4Component },
