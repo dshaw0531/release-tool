@@ -1,5 +1,5 @@
 <div style="margin: 0 2%">
-  <a href="/step2" type="button" class="btn btn-default" style="margin-bottom:1%">Back to Step 2</a>
+  <button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Step 2</button>
   <ngb-accordion [closeOthers]="true" activeIds="static-1">
     <ngb-panel id="static-1" title="Confirm release branch has all code for the release">
       <ng-template ngbPanelContent>
@@ -80,7 +80,7 @@
             <li>Email DB scripts, Deployment Document and any Data Conversion Scripts to the contractor. This will create a ticket on their side.</li>
             <li>If the release includes changes to Utilities, on the night before the US release, make sure to disable scheduled tasks that will conflict with the release time.</li>
         </ul>
-        <a href="/step4" type="button" class="btn btn-default">On to Step 4</a>
+        <button (click)="nextClick();" class="btn btn-default">On to Step 4</button>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

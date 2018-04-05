@@ -1,5 +1,5 @@
 <div style="margin: 0 2%">
-  <a href="/step1" type="button" class="btn btn-default" style="margin-bottom:1%">Back to Step 1</a>
+  <button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Step 1</button>
   <ngb-accordion [closeOthers]="true" activeIds="static-1">
     <ngb-panel id="static-1" title="Do Throughout Testing">
       <ng-template ngbPanelContent>
@@ -32,8 +32,7 @@
               </ul>
           </li>
         </ul>
-
-        <a href="/step3" type="button" class="btn btn-default">On to Step 3</a>
+        <button (click)="nextClick();" class="btn btn-default">On to Step 3</button>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
