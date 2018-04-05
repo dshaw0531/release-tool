@@ -23,10 +23,22 @@ export class GenerateWordDocComponent implements OnInit {
   UK: 1;
   CN: 2;
   US: 3;
-  environment: 'US';
+  environment: string;
+  ChangeEnvironmentMessage: string;
   constructor() { }
 
   ngOnInit() {
+    this.environment = 'Other';
+    this.ChangeEnvironmentMessage = 'Change to Germany Document';
   }
 
+  changeEnvironment() {
+    if (this.environment === 'DE') {
+      this.environment = 'Other';
+      this.ChangeEnvironmentMessage = 'Change to Germany Document';
+    } else {
+      this.environment = 'DE';
+      this.ChangeEnvironmentMessage = 'Change to US/CN/UK Document';
+    }
+  }
 }

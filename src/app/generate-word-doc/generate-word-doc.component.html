@@ -4,7 +4,7 @@
   <h5 class="title orange">[ReleaseOwnerContactInfo]</h5>
 </i>
 
-<div data-ng-if="environment != 'DE'">
+<div *ngIf="environment != 'DE'">
   <h5><strong style="text-decoration: underline;">Pre-Release: (non-Germany only)</strong></h5>
   <strong>Copy files across to all servers: (this can happen any time after the release has been deployed from Bamboo, which typically happens 2 days prior to the US release)</strong>
   <ol type="1">
@@ -192,7 +192,7 @@
   <li>Navigate to International: S:\Relias\Utilities US: C:\Relias\Utilities</li>
   <li>Verify the Modified Date of the files is within 2 days (the date should match the date that we copied the files to the server, not the date that the batch file was executed)</li>
 </ol>
-<div data-ng-if="environment != 'DE'">
+<div *ngIf="environment != 'DE'">
   <strong>US Only – If there are change to PPT2Scorm utilities, deploy Utilities to PPT2SCORM server:</strong>
   <ol type="1">
     <li>Remote into <strong class="orange">[USUtilityServer]</strong></li>
@@ -221,7 +221,7 @@
   <li>Open folder International: “S:\Relias\reports-drop” US: “C:\Relias\reports-drop”</li>
   <li>Right-click on “.\DeployReports.ps1” and Run with PowerShell</li>
 </ol>
-<div data-ng-if="environment != 'DE'">
+<div *ngIf="environment != 'DE'">
 <strong><i>Internal Reports (only deployed in US and UK)</i></strong>
 <ol type="1">
   <li>Remote into <strong class="orange">[UKUtilityServer, USUtilityServer]</strong></li>
@@ -229,7 +229,7 @@
   <li>Right-click on ".\DeployInternalReportsUS.ps1" and Run with PowerShell</li>
 </ol>
 </div>
-<div data-ng-if="environment != 'DE'">
+<div *ngIf="environment != 'DE'">
   <strong>Notify #NextRelease channel that the release has been deployed to specific environment</strong>
   <br />
   <br />
@@ -307,7 +307,7 @@
   </li>
 </ol>
 
-<div data-ng-if="environment != 'DE'">
+<div *ngIf="environment != 'DE'">
   <strong>For US only if Utilities were deployed during the release:</strong>
   <br />
   Re-enable and Run the long-running Utility:
@@ -322,3 +322,9 @@
 </div>
 
 <strong>Steps to Verify Release:</strong>
+
+<br />
+
+<button (click)="changeEnvironment()" type="button" class="btn btn-default">
+  <span>{{ChangeEnvironmentMessage}}</span>
+</button>
