@@ -11,6 +11,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { Step3Component } from './step3/step3.component';
 import { StartComponent } from './start/start.component';
+import { ReleaseService } from './shared/release.service';
 
 const appRoutes: Routes = [
   { path: 'start', component: StartComponent },
@@ -39,7 +40,7 @@ const appRoutes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
   ],
-  providers: [],
+  providers: [ReleaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

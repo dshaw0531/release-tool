@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireList } from 'angularfire2/database';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'RLMS Release Tool';
-  // items: FirebaseListObservable<any[]>;
+  item: AngularFireList<any[]>;
 }
