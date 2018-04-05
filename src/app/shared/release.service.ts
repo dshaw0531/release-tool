@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ReleaseService {
@@ -15,6 +16,12 @@ export class ReleaseService {
 
   getReleases() {
     return this.releases;
+  }
+
+  getRelease(releaseKey: string): Observable<any> {
+    return this.af.object('/releases/' + releaseKey).snapshotChanges().map(res => {
+      return res.payload.val();
+    });
   }
 
   deleteRelease(releaseKey: any) {
