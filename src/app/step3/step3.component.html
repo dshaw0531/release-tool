@@ -1,85 +1,86 @@
 <div style="margin: 0 2%">
   <a href="/step2" type="button" class="btn btn-default" style="margin-bottom:1%">Back to Step 2</a>
   <ngb-accordion [closeOthers]="true" activeIds="static-1">
-    <ngb-panel id="static-1" title="Final Release Prep">
+    <ngb-panel id="static-1" title="Confirm release branch has all code for the release">
       <ng-template ngbPanelContent>
         <ul>
-          <li>Make sure your release branch has all code for the release
+          <li>Look for database changes not already in source control.  Run Schema Compare from master branch against production databases.<br />
+              If any changes exist create a hotfix branch and push database changes back into source control and finish hotfix branch</li>
+          <li>Generate a rollback script.  Compare the master branch against the staging database and generate a script of the non-table changes</li>
+          <li>For table changes, generate a migration rollback script
             <ul>
-              <li>Look for database changes not already in source control.  Run Schema Compare from master branch against production databases.<br />
-                  If any changes exist create a hotfix branch and push database changes back into source control and finish hotfix branch</li>
-              <li>Generate a rollback script.  Compare the master branch against the staging database and generate a script of the non-table changes</li>
-              <li>For table changes, generate a migration rollback script
-                <ul>
-                    <li>Goto the master branch and get the name of the last migration (This will be the TO)</li>
-                    <li>Goto the release branch and get the name of the last migration (This will be the FROM)</li>
-                    <li>Run the following command in Package Manager Console<br />
-                      <i>Script-Migration -From &lt;FROM-migration&gt; -To &lt;TO-migration&gt;</i></li>
-                    <li>Open the solution in Visual Studio while making sure the relase branch is the active working branch</li>
-                    <li>Run Schema Compare against production databases and review pending changes (DO NOT APPLY).  Sometimes changes are made directly on production.<br />
-                        This provides an opportunity to bring those in to Git as well as another method to view upcoming changes in addition to code reviews.
-                        <ul>
-                          <li>Identify any new tables that need to be replicated from LMS to LMSReport, create a JIRA task, and send to DBA.</li>
-                        </ul>
-                    </li>
-                    <li>Review Data Conversion Scripts.  If this is a large release, organize and combine scripts where possible.</li>
-                    <li>In Bitbucket, compare the release branch to the master branch to determine what specific files have changed.  This will translate into which<br />
-                        products need to be released.  Go back up in this document and update the Products to be Released section if necessary.<br />
-                        Print this page to PDF and add to the sharepoint release folder.</li>
-                    <li>Verify that all necessary config file changes are in the config files on the Bamboo server (bamboo.reliasdfw.int).</li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-          <li>Final Release Prep
-            <ul>
-              <li>In Bamboo, click the Source repository tab and change master plan source branch to your release branch and click Save Repository.<br />
-                  Click Load Repositories, change the Repository selected, change it back to relias/platform (git) and then the Branch list should be fully populated.</li>
-              <li>Click Run then Run Branch in the top right</li>
-              <li>After build finishes click Create Release under RLMS Production</li>
-              <li>On release created in previous step click the Deploy () icon next to each environment to deploy.  This process is not destructive.</li>
-              <li>Repeat the steps above for the API (RLMS Phoenix - Build API), Web Servives, Internal Reports, and RLMS Website (RLMS Phoenix - Build Website &amp; Build Website - Production and International),<br />
-                  Enrollment Service, Reporting Service</li>
-              <li>Open Visual Studio and run schema compare for LMS, LMSReport, LMSLog, and ZNode databaes against ORD, China, UK, and Germany production.<br />
-                  Generate separate scripts for each environment to make sure we catch any differences between prodction databases.  DO NOT script and statistics updates.<br />
-                  For international instances, you will need to generate two LMSReport scripts as those databases are not replicated and could be out of sync.<br /><br />
-                  If the DBA group determines it necessary, they will apply any schema (table) changes as part of the release process.<br /><br />
-                  Select items that are safe to deploy before code and Generate Script.  Save a copy of the script.  This includes things that return additional<br />
-                  columns of data, procs that take a new parameter that has a default, etc.  Do this an manual as needed to feel comfortable,<br />
-                  make sure tables of any size are not dropped and recreated during this process.  Generate a script for other changes and save a copy of that as well.</li>
-              <li>Compare Audit schemas.  Staging audit schema updates nightly automatically, use it as the source for production audit schema.<br />
-                  If for any reason staging and production are not in sync, make sure to manually apply adjustments as needed.  If you are connected<br />
-                  to the network in the building, you can schema compare the staging changes to your local db, and then compare your local db to production in order to apply these changes.<br />
-                  Otherwise use the steps below.  Generate separate scripts for each environment:  US, UK, Germany, China.
-                <ul>
-                  <li>Open LMSAudit.scmp  and run Compare (must be connected to both ORD and DFW VPNs, in that order). This will make sure any new columns are added.<br />
-                      Do not let any column deletions occur at this point (may need to Generate Script and modify).</li>
-                  <li>Open LMS Triggers.scmp and run Compare. This will make sure triggers between staging and production are the same. This process tends to try to <br />
-                      modify more than just triggers so Generate Script and modify as needed to verify it is only modifying triggers and no other schema changes.</li>
-                  <li>Run LMSAudit Compare again to process column deletions if any exist.</li>
-                </ul>
-              </li>
-              <li>Verify approval on the CHM ticket</li>
-              <li>Prepare Germany Release for deployment by contractor. Combine all schema change scripts into a folder
-                <ul>
-                  <li>LMS Schema Script</li>
-                  <li>LMSReport Schema script</li>
-                  <li>LMSLog Schema script</li>
-                  <li>LMSAudit Schema script</li>
-                  <li>LMSTriggers Schema script</li>
-                  <li>LMS proc changes</li>
-                  <li>LMSReport proc changes</li>
-                  <li>LMSLog proc changes</li>
-                  <li>Data Conversion scripts</li>
-                </ul>
-              </li>
-              <li>Update Germany Release Deployment Document to reflect the folder names and script file names. Also remove any projects or steps that are not necessary <br />
-                  for this release from the list in the document that are not part of this release.</li>
-              <li>Email DB scripts, Deployment Document and any Data Conversion Scripts to the contractor. This will create a ticket on their side.</li>
-              <li>If the release includes changes to Utilities, on the night before the US release, make sure to disable scheduled tasks that will conflict with the release time.</li>
+                <li>Goto the master branch and get the name of the last migration (This will be the TO)</li>
+                <li>Goto the release branch and get the name of the last migration (This will be the FROM)</li>
+                <li>Run the following command in Package Manager Console<br />
+                  <i>Script-Migration -From &lt;FROM-migration&gt; -To &lt;TO-migration&gt;</i></li>
+                <li>Open the solution in Visual Studio while making sure the relase branch is the active working branch</li>
+                <li>Run Schema Compare against production databases and review pending changes (DO NOT APPLY).  Sometimes changes are made directly on production.<br />
+                    This provides an opportunity to bring those in to Git as well as another method to view upcoming changes in addition to code reviews.
+                    <ul>
+                      <li>Identify any new tables that need to be replicated from LMS to LMSReport, create a JIRA task, and send to DBA.</li>
+                    </ul>
+                </li>
+                <li>Review Data Conversion Scripts.  If this is a large release, organize and combine scripts where possible.</li>
+                <li>In Bitbucket, compare the release branch to the master branch to determine what specific files have changed.  This will translate into which<br />
+                    products need to be released.  Go back up in this document and update the Products to be Released section if necessary.<br />
+                    Print this page to PDF and add to the sharepoint release folder.</li>
+                <li>Verify that all necessary config file changes are in the config files on the Bamboo server (bamboo.reliasdfw.int).</li>
             </ul>
           </li>
         </ul>
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel id="static-2" title="Final Release Prep">
+      <ng-template ngbPanelContent>
+        <ul>
+            <li>In Bamboo, click the Source repository tab and change master plan source branch to your release branch and click Save Repository.<br />
+                Click Load Repositories, change the Repository selected, change it back to relias/platform (git) and then the Branch list should be fully populated.</li>
+            <li>Click Run then Run Branch in the top right</li>
+            <li>After build finishes click Create Release under RLMS Production</li>
+            <li>On release created in previous step click the Deploy () icon next to each environment to deploy.  This process is not destructive.</li>
+            <li>Repeat the steps above for the API (RLMS Phoenix - Build API), Web Servives, Internal Reports, and RLMS Website (RLMS Phoenix - Build Website &amp; Build Website - Production and International),<br />
+                Enrollment Service, Reporting Service</li>
+            <li>Open Visual Studio and run schema compare for LMS, LMSReport, LMSLog, and ZNode databaes against ORD, China, UK, and Germany production.</li>
+              <ul>
+                <li>Generate separate scripts for each environment to make sure we catch any differences between prodction databases.  DO NOT script and statistics updates.<br />
+                    For international instances, you will need to generate two LMSReport scripts as those databases are not replicated and could be out of sync.</li>
+                <li>If the DBA group determines it necessary, they will apply any schema (table) changes as part of the release process.</li>
+                <li>Select items that are safe to deploy before code and Generate Script.  Save a copy of the script.  This includes things that return additional<br />
+                    columns of data, procs that take a new parameter that has a default, etc.  Do this an manual as needed to feel comfortable,<br />
+                    make sure tables of any size are not dropped and recreated during this process.  Generate a script for other changes and save a copy of that as well.</li>
+              </ul>
+            <li>Compare Audit schemas.  Staging audit schema updates nightly automatically, use it as the source for production audit schema.<br />
+                If for any reason staging and production are not in sync, make sure to manually apply adjustments as needed.  If you are connected<br />
+                to the network in the building, you can schema compare the staging changes to your local db, and then compare your local db to production in order to apply these changes.<br />
+                Otherwise use the steps below.  Generate separate scripts for each environment:  US, UK, Germany, China.
+              <ul>
+                <li>Open LMSAudit.scmp  and run Compare (must be connected to both ORD and DFW VPNs, in that order). This will make sure any new columns are added.<br />
+                    Do not let any column deletions occur at this point (may need to Generate Script and modify).</li>
+                <li>Open LMS Triggers.scmp and run Compare. This will make sure triggers between staging and production are the same. This process tends to try to <br />
+                    modify more than just triggers so Generate Script and modify as needed to verify it is only modifying triggers and no other schema changes.</li>
+                <li>Run LMSAudit Compare again to process column deletions if any exist.</li>
+              </ul>
+            </li>
+            <li>Verify approval on the CHM ticket</li>
+            <li>Prepare Germany Release for deployment by contractor. Combine all schema change scripts into a folder
+              <ul>
+                <li>LMS Schema Script</li>
+                <li>LMSReport Schema script</li>
+                <li>LMSLog Schema script</li>
+                <li>LMSAudit Schema script</li>
+                <li>LMSTriggers Schema script</li>
+                <li>LMS proc changes</li>
+                <li>LMSReport proc changes</li>
+                <li>LMSLog proc changes</li>
+                <li>Data Conversion scripts</li>
+              </ul>
+            </li>
+            <li>Update Germany Release Deployment Document to reflect the folder names and script file names. Also remove any projects or steps that are not necessary <br />
+                for this release from the list in the document that are not part of this release.</li>
+            <li>Email DB scripts, Deployment Document and any Data Conversion Scripts to the contractor. This will create a ticket on their side.</li>
+            <li>If the release includes changes to Utilities, on the night before the US release, make sure to disable scheduled tasks that will conflict with the release time.</li>
+        </ul>
+        <a href="/step4" type="button" class="btn btn-default">On to Step 4</a>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
