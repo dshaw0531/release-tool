@@ -21,21 +21,24 @@
   </ngb-panel>
   <ngb-panel id="static-3" title="Choose Repos that will be included in the Release (based on the diffs generated in the Service Dashboard)">
       <ng-template ngbPanelContent>
-        <input type="checkbox">RLMS Legacy<br>
-        <ul>
+        
           <ngb-accordion>
-            <ngb-panel id="legacy-products" title="RLMS Legacy Products">
+            <ngb-panel id="legacy-products">
+              <ng-template ngbPanelTitle>
+              <input type="checkbox">RLMS Legacy                
+              </ng-template>  
               <ng-template ngbPanelContent>
+                <ul>
                   <input type="checkbox">RLMS Website (Legacy)<br>
                   <input type="checkbox">RLMS Reports<br>
                   <input type="checkbox">Utilities<br>
                   <input type="checkbox">Web Services<br>
                   <input type="checkbox">Academy Services<br>
                   <input type="checkbox">Relias Academy (Znode)<br>
+                  </ul>
               </ng-template>
             </ngb-panel>
             </ngb-accordion>
-          </ul>
         <input type="checkbox">RLMS Website (Angular)<br>
         <input type="checkbox">RLMS API<br>
         <input type="checkbox">RLMS Database<br>
@@ -47,5 +50,39 @@
         <input type="checkbox">Learning Service<br>
         <input type="checkbox">Reports (Internal)<br>
       </ng-template>
+  </ngb-panel>
+  <ngb-panel id="static-4" title="Administrative Tasks">
+      <ng-template ngbPanelContent>
+        <ul>
+          <li>Review fix versions from output of service dashboard (csv of ticket numbers/fix versions from each repo)</li>
+          <li>Use service dashboard to cut release branches (feature) & notify #nextrelease channel</li>
+          <li>If rlms-api has migrations, script them (only shown if checked in projects to be released)</li>
+        </ul>
+    </ng-template>
+  </ngb-panel>
+  <ngb-panel id="static-5" title="For each staging environment (US/UK/DE/UAT5) complete following steps:">
+    <ng-template ngbPanelContent>
+      <ul>
+        <li>Apply generated migration scripts</li>
+        <li>Schema compares (can be hidden if no database changes), generate scripts, apply scripts for the following databases:
+          <ul>
+            <li>LMS</li>
+            <li>LMSLog</li>
+            <li>LMSReport</li>
+          </ul>
+        </li>
+        <li>Check data conversion scripts folder and apply applicable config changes (can be hidden if no database changes)</li>
+        <li>Kickoff builds for applicable repos (from checklist above)</li>
+        <li>Deploy Reports (can be hidden if no report changes)</li>
+        <li>Deploy Internal Reports</li>
+      </ul>
+    </ng-template>
+  </ngb-panel>
+  <ngb-panel id="static-6" title="When builds have finished:">
+      <ng-template ngbPanelContent>
+        <ul>
+          <li>Notify #nextrelease room in Slack that the Release Candidate is ready and available for testing</li>
+        </ul>
+    </ng-template>
   </ngb-panel>
 </ngb-accordion>
