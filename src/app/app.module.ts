@@ -8,10 +8,12 @@ import { Step2Component } from './step2/step2.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
+import { Step3Component } from './step3/step3.component';
 
 const appRoutes: Routes = [
   { path: 'step1', component: Step1Component },
   { path: 'step2', component: Step2Component },
+  { path: 'step3', component: Step3Component },
   { path: '**', redirectTo: 'step1', pathMatch: 'full' }
 ];
 
@@ -19,7 +21,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     Step1Component,
-    Step2Component
+    Step2Component,
+    Step3Component
   ],
   imports: [
     BrowserModule,
