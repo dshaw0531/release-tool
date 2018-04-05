@@ -1,3 +1,5 @@
+<button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Start</button>
+<br />
 <input type="checkbox" [(ngModel)]="generateDE" /> Generate for DE Environment
 <br />
 <input type="checkbox" [(ngModel)]="generateUK" /> Generate for UK Environment
@@ -178,30 +180,32 @@
 <i>(if there are scripts that need to be run after the Website is deployed, list those here)</i>
 <br />
 <br />
-<strong>Create new Utilities:</strong>
-<br />
-*If there are new utilities to create please list them below along with when they should be scheduled to run:
-<br />
-{{this.newUtilityName}} - {{this.newUtilityScheduledTime}}
-<br />
-<strong>Steps to create new utility</strong>
-<ol type="1">
-  <li>Open Task Scheduler, click Create Task...</li>
-  <li>Enter name of the task, should be RLMS.Utility {{this.newUtilityName}}</li>
-  <li>Click change user or group, for user name type in storwebde and then check names. It should recognize the user, click OK.</li>
-  <li>Select 'Run whether user is logged on or not'</li>
-  <li>Create a trigger to run at the specified time above.</li>
-  <li>
-    Create an action to run the utility
-    <ol type="a">
-      <li>Action should be Start a Program</li>
-      <li>Browse program/script for S:\Relias\Utilities\RLMS.Utilities.exe</li>
-      <li>Add argument with the name of the utility</li>
-      <li>Click OK</li>
-    </ol>
-  </li>
-  <li>Click OK to save the new utility, you will be prompted to enter the credentials for the utility user. This password is: +74hEARHo1bBXjs+XjHzmMDB5uYZtpj1nI+95cF5ZBlZc4p7Byw9vkAy/R22mudz4r9cdPjmZ9Ly2LqYWFdVZg==</li>
-</ol>
+<div *ngIf="this.newUtilityName.length > 0">
+  <strong>Create new Utilities:</strong>
+  <br />
+  *If there are new utilities to create please list them below along with when they should be scheduled to run:
+  <br />
+  {{this.newUtilityName}} - {{this.newUtilityScheduledTime}}
+  <br />
+  <strong>Steps to create new utility</strong>
+  <ol type="1">
+    <li>Open Task Scheduler, click Create Task...</li>
+    <li>Enter name of the task, should be RLMS.Utility {{this.newUtilityName}}</li>
+    <li>Click change user or group, for user name type in storwebde and then check names. It should recognize the user, click OK.</li>
+    <li>Select 'Run whether user is logged on or not'</li>
+    <li>Create a trigger to run at the specified time above.</li>
+    <li>
+      Create an action to run the utility
+      <ol type="a">
+        <li>Action should be Start a Program</li>
+        <li>Browse program/script for S:\Relias\Utilities\RLMS.Utilities.exe</li>
+        <li>Add argument with the name of the utility</li>
+        <li>Click OK</li>
+      </ol>
+    </li>
+    <li>Click OK to save the new utility, you will be prompted to enter the credentials for the utility user. This password is: +74hEARHo1bBXjs+XjHzmMDB5uYZtpj1nI+95cF5ZBlZc4p7Byw9vkAy/R22mudz4r9cdPjmZ9Ly2LqYWFdVZg==</li>
+  </ol>
+</div>
 <strong>Deploy Utilities</strong>
 <ol type="1">
   <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>

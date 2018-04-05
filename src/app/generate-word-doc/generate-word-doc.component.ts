@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-generate-word-doc',
@@ -50,7 +51,9 @@ export class GenerateWordDocComponent implements OnInit {
   newUtilityName: string;
   newUtilityScheduledTime: string;
 
-  constructor() { }
+  constructor(private router: Router) {
+    this.router = router;
+  }
 
   ngOnInit() {
     this.generateDE = false;
@@ -124,4 +127,8 @@ export class GenerateWordDocComponent implements OnInit {
 
     return ret.substr(0, ret.length - 2);
   }
+
+  backClick = function() {
+    this.router.navigate(['start/']);
+  };
 }
