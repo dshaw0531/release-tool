@@ -14,13 +14,11 @@ export class Step1Component implements OnInit {
   }
 
   nextClick = function() {
-    if (this.releaseName){
-      this.router.navigateByUrl('/step2');
-    }
+      this.router.navigate(['step2/', this.releaseName]);
   };
 
   backClick = function() {
-    this.router.navigateByUrl('/start');
+    this.router.navigate(['start', this.releaseName ? this.releaseName : '']);
   };
 
   ngOnInit() {
