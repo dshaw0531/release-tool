@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-step1',
@@ -6,7 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./step1.component.css']
 })
 export class Step1Component implements OnInit {
-  constructor() { }
+  private releaseName: string;
 
-  ngOnInit() {}
+  constructor(private route: ActivatedRoute) {
+    this.route.params.subscribe( params => this.releaseName = params['id']);
+  }
+
+  ngOnInit() {
+  }
 }
