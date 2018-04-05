@@ -26,6 +26,7 @@ const appRoutes: Routes = [
   { path: 'step4', component: Step4Component },
   { path: 'step4/:id', component: Step4Component },
   { path: 'word', component: GenerateWordDocComponent },
+  { path: 'word/:id', component: GenerateWordDocComponent },
   { path: '**', redirectTo: 'start', pathMatch: 'full' }
 ];
 
