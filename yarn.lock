@@ -1830,13 +1830,7 @@ dns-txt@^2.0.2:
   dependencies:
     buffer-indexof "^1.0.0"
 
-documentdb-typescript@^1.0.7:
-  version "1.0.7"
-  resolved "https://registry.yarnpkg.com/documentdb-typescript/-/documentdb-typescript-1.0.7.tgz#85addc4c6d2760cd0aa2c3788c6245cf2aa98fdc"
-  dependencies:
-    documentdb "^1.12.0"
-
-documentdb@^1.12.0, documentdb@^1.14.2:
+documentdb@^1.14.2:
   version "1.14.2"
   resolved "https://registry.yarnpkg.com/documentdb/-/documentdb-1.14.2.tgz#26928fd03cd695f3111f32fe8323aa27e10cf5c7"
   dependencies:
