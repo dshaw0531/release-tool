@@ -10,13 +10,15 @@ import { GenerateWordDocComponent } from './generate-word-doc/generate-word-doc.
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { Step3Component } from './step3/step3.component';
+import { StartComponent } from './start/start.component';
 
 const appRoutes: Routes = [
+  { path: 'start', component: StartComponent },
   { path: 'step1', component: Step1Component },
   { path: 'step2', component: Step2Component },
   { path: 'step3', component: Step3Component },
   { path: 'word', component: GenerateWordDocComponent },
-  { path: '**', redirectTo: 'step1', pathMatch: 'full' }
+  { path: '**', redirectTo: 'start', pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
     Step1Component,
     Step2Component,
     Step3Component,
-    GenerateWordDocComponent
+    GenerateWordDocComponent,
+    StartComponent
   ],
   imports: [
     BrowserModule,

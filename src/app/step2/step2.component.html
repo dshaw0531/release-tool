@@ -1,40 +1,40 @@
-<a href="/step1" type="button" class="btn btn-default" style="margin-left:2%">Back to Step 1</a>
-<br />
-<br />
-<ngb-accordion [closeOthers]="true" activeIds="static-1">
-  <ngb-panel id="static-1" title="Do Throughout Testing">
-    <ng-template ngbPanelContent>
-      <ul>
-        <li>Merge changes to the release branch back to develop</li>
-        <li>Check staging Elmah log (or New Relic).  Report any issues found to QA</li>
-      </ul>
-    </ng-template>
-  </ngb-panel>
-  <ngb-panel id="static-2" title="Administrative Tasks to Complete">
-    <ng-template ngbPanelContent>
-      <ul>
-        <li>Using BitBucket, generate the diffs of all the changes between the release branch and the master branch for each repo identified in Step 1</li>
+<div style="margin: 0 2%">
+  <a href="/step1" type="button" class="btn btn-default" style="margin-bottom:1%">Back to Step 1</a>
+  <ngb-accordion [closeOthers]="true" activeIds="static-1">
+    <ngb-panel id="static-1" title="Do Throughout Testing">
+      <ng-template ngbPanelContent>
         <ul>
-          <li>Save these diffs as .html files to the relaase folder in SharePoint</li>
+          <li>Merge changes to the release branch back to develop</li>
+          <li>Check staging Elmah log (or New Relic).  Report any issues found to QA</li>
         </ul>
-        <li>(If rlms-database changes) Using Bitbucket, compare the rlms-database release branch to the master branch.</li>
-        <li>Send link of diff to Systems Management (sysman@relias.com) (cc: Todd, AppSupport, your manager and any other people on your team that do releases) asking for DBA sign-off on schema and proc changes</li>
-        <li>Once you receive a response, save a copy of the sign-off email to the release folder in SharePoint</li>
-        <li>Determine if we'll need to schedule downtime (for modifications to large / heavily used tables).  If so notify Joel / Anne to coordinate with Support</li>
-        <li>
-          Verify that Anne has sent an email to DevOps with details about the release<br />
-          Email should include the following details:
+      </ng-template>
+    </ngb-panel>
+    <ngb-panel id="static-2" title="Administrative Tasks to Complete">
+      <ng-template ngbPanelContent>
+        <ul>
+          <li>Using BitBucket, generate the diffs of all the changes between the release branch and the master branch for each repo identified in Step 1</li>
           <ul>
-              <li>Jira Fix Version (and link to fix version)</li>
-              <li>Release Owner's Name(s)</li>
-              <li>Scheduled Date/Time of Release</li>
-              <li>Expected Downtime (even if none)</li>
-              <li>Purpose of Maintenance: RLMS Software Release</li>
-            </ul>
-        </li>
-      </ul>
+            <li>Save these diffs as .html files to the relaase folder in SharePoint</li>
+          </ul>
+          <li>(If rlms-database changes) Using Bitbucket, compare the rlms-database release branch to the master branch.</li>
+          <li>Send link of diff to Systems Management (sysman@relias.com) (cc: Todd, AppSupport, your manager and any other people on your team that do releases) asking for DBA sign-off on schema and proc changes</li>
+          <li>Once you receive a response, save a copy of the sign-off email to the release folder in SharePoint</li>
+          <li>Determine if we'll need to schedule downtime (for modifications to large / heavily used tables).  If so notify Joel / Anne to coordinate with Support</li>
+          <li>
+            Verify that Anne has sent an email to DevOps with details about the release<br />
+            Email should include the following details:
+            <ul>
+                <li>Jira Fix Version (and link to fix version)</li>
+                <li>Release Owner's Name(s)</li>
+                <li>Scheduled Date/Time of Release</li>
+                <li>Expected Downtime (even if none)</li>
+                <li>Purpose of Maintenance: RLMS Software Release</li>
+              </ul>
+          </li>
+        </ul>
 
-      <a href="/step3" type="button" class="btn btn-default">On to Step 3</a>
-    </ng-template>
-  </ngb-panel>
-</ngb-accordion>
+        <a href="/step3" type="button" class="btn btn-default">On to Step 3</a>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
