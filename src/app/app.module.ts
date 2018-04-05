@@ -5,6 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { Step1Component } from './step1/step1.component';
 import { Step2Component } from './step2/step2.component';
+import { Database, Client, Collection } from 'documentdb-typescript';
 
 const appRoutes: Routes = [
   { path: 'step1', component: Step1Component },
@@ -23,7 +24,10 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes
     ),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    Database,
+    Client,
+    Collection
   ],
   providers: [],
   bootstrap: [AppComponent]

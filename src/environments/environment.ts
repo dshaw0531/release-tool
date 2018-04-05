@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  dbEndpoint: 'https://relias-release-tool.documents.azure.com:443/',
+  dbAuthKey: 'YvzRdAyKq0JqqDEksxy1zfySq7a6sis6mqkt6TszXnIx3oZCnpzY8UjyHONd3zkYbKOYg7MxPlAsKcJkzs27HQ=='
 };
