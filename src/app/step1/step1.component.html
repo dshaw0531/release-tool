@@ -1,10 +1,10 @@
 <div style="margin: 0 2%">
-  <a href="/start" type="button" class="btn btn-default" style="margin-bottom:1%">Back to Start</a>
+  <button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Start</button>
   <ngb-accordion [closeOthers]="true" activeIds="static-1">
     <ngb-panel id="static-1" title="Release Title">
       <ng-template ngbPanelContent>
         Enter Release Name:
-        <input id="releaseName" [(ngModel)]="releaseName"/>
+        <input id="releaseName" [(ngModel)]="releaseName" required/>
       </ng-template>
     </ngb-panel>
     <ngb-panel id="static-2" title="Open Service Dashboard">
@@ -86,7 +86,7 @@
             <li>Notify #nextrelease room in Slack that the Release Candidate is ready and available for testing</li>
           </ul>
 
-          <a href="/step2" type="button" class="btn btn-default">On to Step 2</a>
+          <button (click)="nextClick();" ng-disabled="!formCtrl.form.valid" class="btn btn-default">On to Step 2</button>
       </ng-template>
     </ngb-panel>
   </ngb-accordion>

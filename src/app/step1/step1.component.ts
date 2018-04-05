@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-step1',
@@ -9,9 +9,19 @@ import { ActivatedRoute } from '@angular/router';
 export class Step1Component implements OnInit {
   private releaseName: string;
 
-  constructor(private route: ActivatedRoute) {
+  constructor(private route: ActivatedRoute, private router: Router) {
     this.route.params.subscribe( params => this.releaseName = params['id']);
   }
+
+  nextClick = function() {
+    if (this.releaseName){
+      this.router.navigateByUrl('/step2');
+    }
+  };
+
+  backClick = function() {
+    this.router.navigateByUrl('/start');
+  };
 
   ngOnInit() {
   }
