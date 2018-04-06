@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ReleaseService } from '../shared/services/release.service';
+import { Release } from '../shared/models/release';
 
 @Component({
   selector: 'app-generate-word-doc',
@@ -26,36 +28,20 @@ export class GenerateWordDocComponent implements OnInit {
   generateCN: boolean;
   generateUS: boolean;
 
-  releaseName: string;
-  releaseOwner: string;
-  releaseOwnerContactInfo: string;
-  chmTicket: string;
+  releaseKey: string;
+  release: any;
 
-  legacyReleaseNumber: string;
-  angularReleaseNumber: string;
-  apiReleaseNumber: string;
-  internalToolsReleaseNumber: string;
-  enrollmentsServiceReleaseNumber: string;
-  reportingServiceReleaseNumber: string;
-  learningServiceReleaseNumber: string;
-
-  lmsMigrationScript: string;
-  lmsProcChangesScript: string;
-  lmsLogMigrationScript: string;
-  lmsLogProcChangesScript: string;
-  lmsReportSchemaScript: string;
-  lmsReportProcChangesScript: string;
-  lmsAuditChangesScript: string;
-  lmsTriggersChangesScript: string;
-
-  newUtilityName: string;
-  newUtilityScheduledTime: string;
-
-  constructor(private router: Router) {
+  constructor(private route: ActivatedRoute, private router: Router, private releaseService: ReleaseService) {
     this.router = router;
+    this.route.params.subscribe( params => this.releaseKey = params['id']);
+    this.releaseService = releaseService;
   }
 
   ngOnInit() {
+    this.releaseService.getRelease(this.releaseKey).subscribe(release => {
+      this.release = release;
+    });
+
     this.generateDE = false;
     this.generateCN = true;
     this.generateUK = true;
@@ -79,32 +65,6 @@ export class GenerateWordDocComponent implements OnInit {
     this.UK = 1;
     this.CN = 2;
     this.US = 3;
-
-    // Test Values
-    this.releaseName = '2018.04.03';
-    this.releaseOwner = 'Karch McCoy';
-    this.releaseOwnerContactInfo = '(314)620-4774, kmccoy@relias.com';
-    this.chmTicket = 'CHM-273';
-
-    this.legacyReleaseNumber = 'release-266';
-    this.apiReleaseNumber = 'release-40';
-    this.angularReleaseNumber = 'release-29';
-    this.internalToolsReleaseNumber = 'release-50';
-    this.enrollmentsServiceReleaseNumber = 'release-5';
-    this.reportingServiceReleaseNumber = 'release-11';
-    this.learningServiceReleaseNumber = 'release-4';
-
-    this.lmsMigrationScript = 'LMS Migrations.sql';
-    this.lmsLogMigrationScript = 'LMSLog Migrations.sql';
-    this.lmsAuditChangesScript = 'LMSAudit Changes.sql';
-    this.lmsTriggersChangesScript = 'LMSTriggers Changes.sql';
-    this.lmsProcChangesScript = 'LMS Schema Compare.sql';
-    this.lmsLogProcChangesScript = 'LMSLog Schema Compare.sql';
-    this.lmsReportSchemaScript = 'LMSReport Schema.sql';
-    this.lmsReportProcChangesScript = 'LMSReport Schema Compare.sql';
-
-    this.newUtilityName = 'New Utility Test';
-    this.newUtilityScheduledTime = '3:30pm - Tuesdays';
   }
 
   getServers(servers: string[]): string {

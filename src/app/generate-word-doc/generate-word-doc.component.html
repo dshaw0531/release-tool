@@ -1,339 +1,373 @@
-<button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Start</button>
-<br />
-<input type="checkbox" [(ngModel)]="generateDE" /> Generate for DE Environment
-<br />
-<input type="checkbox" [(ngModel)]="generateUK" /> Generate for UK Environment
-<br />
-<input type="checkbox" [(ngModel)]="generateCN" /> Generate for CN Environment
-<br />
-<input type="checkbox" [(ngModel)]="generateUS" /> Generate for US Environment
-
-<br />
-<h2>RLMS Release Document -- <span class="orange">[{{this.releaseName}}]</span></h2>
-<i>
-  <h5 class="title">Release owner to contact if issues arise: <span class="orange">[{{this.releaseOwner}}]</span></h5>
-  <h5 class="title orange">[{{this.releaseOwnerContactInfo}}]</h5>
-</i>
-
-<div *ngIf="(generateUK || generateCN || generateUS)">
-  <h5><strong style="text-decoration: underline;">Pre-Release: (non-Germany only)</strong></h5>
-  <strong>Copy files across to all servers: (this can happen any time after the release has been deployed from Bamboo, which typically happens 2 days prior to the US release)</strong>
-  <ol type="1">
-    <li>
-      Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong>
-    </li>
-    <li>
-      Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)
-    </li>
-    <li>
-      For each box that has a release listed on only the first server repeat these steps:
-      <ol type="a">
-        <li>Right click on the release that is only on the first server</li>
-        <li>Click Copy</li>
-        <li>In the window that opens, click Run</li>
-        <li>When that is complete, close the window</li>
-        <li>Click the refresh link to the right of the box</li>
-        <li>Verify an 'x' shows for the newest release on all servers</li>
-      </ol>
-    </li>
-  </ol>
-  <strong>For US only if Utilities will be deployed during the release:</strong> <br />
-  The night prior to the release, disable the a long-running Utility:
-  <ol type="1">
-    <li>Remote into <strong class="orange">[{{this.utilityServers[this.US]}}]</strong></li>
-    <li>Open Task Scheduler (Start > Task Scheduler)</li>
-    <li>Click on Task Scheduler Library in the left panel</li>
-    <li>Locate the task named RLMS.Utilities BoosterQuestionsLearnerEmail</li>
-    <li>Right click on it and select Disable</li>   
-  </ol>
+<div style="margin: 0 2% 5% 2%">
+  <button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Start</button>
   <br />
+  <input type="checkbox" [(ngModel)]="generateDE" /> Generate for DE Environment
+  <br />
+  <input type="checkbox" [(ngModel)]="generateUK" /> Generate for UK Environment
+  <br />
+  <input type="checkbox" [(ngModel)]="generateCN" /> Generate for CN Environment
+  <br />
+  <input type="checkbox" [(ngModel)]="generateUS" /> Generate for US Environment
+
+  <br />
+  <h2>RLMS Release Document -- <span class="orange">[{{this.release.name}}]</span></h2>
+  <i>
+    <h5 class="title">Release owner to contact if issues arise: <span class="orange">[{{this.release.releaseOwner}}]</span></h5>
+    <h5 class="title orange">[{{this.release.contactInfo}}]</h5>
+  </i>
+
+  <div *ngIf="(generateUK || generateCN || generateUS)">
+    <h5><strong style="text-decoration: underline;">Pre-Release: (non-Germany only)</strong></h5>
+    <strong>Copy files across to all servers: (this can happen any time after the release has been deployed from Bamboo, which typically happens 2 days prior to the US release)</strong>
+    <ol type="1">
+      <li>
+        Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong>
+      </li>
+      <li>
+        Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)
+      </li>
+      <li>
+        For each box that has a release listed on only the first server repeat these steps:
+        <ol type="a">
+          <li>Right click on the release that is only on the first server</li>
+          <li>Click Copy</li>
+          <li>In the window that opens, click Run</li>
+          <li>When that is complete, close the window</li>
+          <li>Click the refresh link to the right of the box</li>
+          <li>Verify an 'x' shows for the newest release on all servers</li>
+        </ol>
+      </li>
+    </ol>
+
+    <strong>For US only if Utilities will be deployed during the release:</strong> <br />
+    The night prior to the release, disable the a long-running Utility:
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{this.utilityServers[this.US]}}]</strong></li>
+      <li>Open Task Scheduler (Start > Task Scheduler)</li>
+      <li>Click on Task Scheduler Library in the left panel</li>
+      <li>Locate the task named RLMS.Utilities BoosterQuestionsLearnerEmail</li>
+      <li>Right click on it and select Disable</li>   
+    </ol>
+    <br />
+    <strong>Notify #NextRelease that the release is beginning for specific environment</strong>
+  </div>
+
+  <div style="clear: both;"><br /><br /></div>
+
+  <h5><strong style="text-decoration: underline;">Release</strong></h5>
   <strong>Notify #NextRelease that the release is beginning for specific environment</strong>
-</div>
+  <br />
+  <br />
+  <strong>Open monitoring tools – Google Analytics, New Relic, Elmah</strong> (u: elmah, p: bacon19)
+  <br />
+  <br />
+  <strong>These can be found at: </strong><a href="http://reliashealth.azurewebsites.net/">http://reliashealth.azurewebsites.net/</a>
+  <br />
+  <br />
 
-<div style="clear: both;"><br /><br /></div>
-
-<h5><strong style="text-decoration: underline;">Release</strong></h5>
-<strong>Notify #NextRelease that the release is beginning for specific environment</strong>
-<br />
-<br />
-<strong>Open monitoring tools – Google Analytics, New Relic, Elmah</strong> (u: elmah, p: bacon19)
-<br />
-<br />
-<strong>These can be found at: </strong><a href="http://reliashealth.azurewebsites.net/">http://reliashealth.azurewebsites.net/</a>
-<br />
-<br />
-<strong>Database – Execute the following scripts using SSMS in order listed</strong>
-<br />
-<ol type="1">
-  <li>
-    Remote into <span style="font-weight: bold;" class="orange">[{{getServers(this.sqlServers)}}]</span> and open SSMS <strong>as an administrator.</strong> Connect to <strong class="orange">[{{getServers(this.sqlConnections)}}]</strong> and execute the following scripts:
-    <ol type="a">
-      <li class="gold" *ngIf="this.lmsMigrationScript.length > 0">{{this.lmsMigrationScript}}</li>
-      <li class="gold" *ngIf="this.lmsLogMigrationScript.length > 0">{{this.lmsLogMigrationScript}}</li>
-      <li class="gold" *ngIf="this.lmsAuditChangesScript.length > 0">{{this.lmsAuditChangesScript}} (execute with SQLCMD on)</li>
-      <li class="gold" *ngIf="this.lmsTriggersChangesScript.length > 0">{{this.lmsTriggersChangesScript}} (execute with SQLCMD on)</li>
-      <li class="gold" *ngIf="this.lmsProcChangesScript.length > 0">{{this.lmsProcChangesScript}} (execute with SQLCMD on)</li>
-      <li class="gold" *ngIf="this.lmsLogProcChangesScript.length > 0">{{this.lmsLogProcChangesScript}} (execute with SQLCMD on)</li>
-    </ol>
-  </li>
-  <li>
-    Change the connection to <strong class="orange">[{{getServers(this.reportConnections)}}]</strong> and execute the following scripts:
-    <ol type="a">
-      <li class="gold" *ngIf="this.lmsReportSchemaScript.length > 0">{{this.lmsReportSchemaScript}}</li>
-      <li class="gold" *ngIf="this.lmsReportProcChangesScript.length > 0">{{this.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
-    </ol>
-  </li>
-  <li>
-    Change the connection to <strong class="orange">[{{getServers(this.report2Connections).substr(0, getServers(this.report2Connections).length - 2)}}]</strong> and execute the following scripts:
-    <ol type="a">
-      <li class="gold" *ngIf="this.lmsReportSchemaScript.length > 0">{{this.lmsReportSchemaScript}}</li>
-      <li class="gold" *ngIf="this.lmsReportProcChangesScript.length > 0">{{this.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
-    </ol>
-  </li>
-</ol>
-<strong>Website</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the top box (titled RLMS Website Files), right click on <strong class="orange">[{{this.legacyReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>API</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the third from the bottom box (titled RLMS API Files), right click on <strong class="orange">[{{this.apiReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>RLMS Angular Website</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the third from the bottom box (titled RLMS Angular Website Files), right click on <strong class="orange">[{{this.angularReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>Enrollments Api Files</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the third from the bottom box (titled Enrollments Api Files), right click on <strong class="orange">[{{this.enrollmentsServiceReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>Reporting Service Files</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the third from the bottom box (titled Reporting Service Files), right click on <strong class="orange">[{{this.reportingServiceReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>Learning Service Files</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the third from the bottom box (titled Learning Service Files), right click on <strong class="orange">[{{this.learningServiceReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>Refresh Cache</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>Click button labeled <strong>'Clear Redis Cache - Website'</strong> (top row of buttons, all the way to the right) </li>
-  <li>Click button labeled <strong>'Clear Redis Cache - API'</strong> (second row of buttons, all the way to the right) </li>
-</ol>
-<strong>Web Services</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
-  <li>In the third from the bottom box (titled RLMS Web Services Files), right click on <strong class="orange">[{{this.legacyReleaseNumber}}]</strong></li>
-  <li>Click Set IIS Path</li>
-  <li>In the window that opens, click Run</li>
-  <li>When that is complete, close the window</li>
-  <li>Click the refresh link to the right of the box</li>
-  <li>Verify the cells are yellow for the newest release on all servers</li>
-</ol>
-<strong>Database part 2:</strong>
-<br />
-<i>(if there are scripts that need to be run after the Website is deployed, list those here)</i>
-<br />
-<br />
-<div *ngIf="this.newUtilityName.length > 0">
-  <strong>Create new Utilities:</strong>
+  <strong>Database – Execute the following scripts using SSMS in order listed</strong>
   <br />
-  *If there are new utilities to create please list them below along with when they should be scheduled to run:
-  <br />
-  {{this.newUtilityName}} - {{this.newUtilityScheduledTime}}
-  <br />
-  <strong>Steps to create new utility</strong>
   <ol type="1">
-    <li>Open Task Scheduler, click Create Task...</li>
-    <li>Enter name of the task, should be RLMS.Utility {{this.newUtilityName}}</li>
-    <li>Click change user or group, for user name type in storwebde and then check names. It should recognize the user, click OK.</li>
-    <li>Select 'Run whether user is logged on or not'</li>
-    <li>Create a trigger to run at the specified time above.</li>
     <li>
-      Create an action to run the utility
+      Remote into <span style="font-weight: bold;" class="orange">[{{getServers(this.sqlServers)}}]</span> and open SSMS <strong>as an administrator.</strong> Connect to <strong class="orange">[{{getServers(this.sqlConnections)}}]</strong> and execute the following scripts:
       <ol type="a">
-        <li>Action should be Start a Program</li>
-        <li>Browse program/script for S:\Relias\Utilities\RLMS.Utilities.exe</li>
-        <li>Add argument with the name of the utility</li>
-        <li>Click OK</li>
+        <li class="gold" *ngIf="this.release.lmsMigrationScript.length > 0">{{this.release.lmsMigrationScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsLogMigrationScript.length > 0">{{this.release.lmsLogMigrationScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsAuditChangesScript.length > 0">{{this.release.lmsAuditChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsTriggersChangesScript.length > 0">{{this.release.lmsTriggersChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsProcChangesScript.length > 0">{{this.release.lmsProcChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsLogProcChangesScript.length > 0">{{this.release.lmsLogProcChangesScript}} (execute with SQLCMD on)</li>
       </ol>
     </li>
-    <li>Click OK to save the new utility, you will be prompted to enter the credentials for the utility user. This password is: +74hEARHo1bBXjs+XjHzmMDB5uYZtpj1nI+95cF5ZBlZc4p7Byw9vkAy/R22mudz4r9cdPjmZ9Ly2LqYWFdVZg==</li>
+    <li>
+      Change the connection to <strong class="orange">[{{getServers(this.reportConnections)}}]</strong> and execute the following scripts:
+      <ol type="a">
+        <li class="gold" *ngIf="this.release.lmsReportSchemaScript.length > 0">{{this.release.lmsReportSchemaScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsReportProcChangesScript.length > 0">{{this.release.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
+      </ol>
+    </li>
+    <li>
+      Change the connection to <strong class="orange">[{{getServers(this.report2Connections).substr(0, getServers(this.report2Connections).length - 2)}}]</strong> and execute the following scripts:
+      <ol type="a">
+        <li class="gold" *ngIf="this.release.lmsReportSchemaScript.length > 0">{{this.release.lmsReportSchemaScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsReportProcChangesScript.length > 0">{{this.release.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
+      </ol>
+    </li>
   </ol>
-</div>
-<strong>Deploy Utilities</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
-  <li>Navigate to International: S:\Relias US: C:\Relias</li>
-  <li>Right click on ‘Deploy Utilities’.</li>
-  <li>Click ‘Run as administrator’</li>
-  <li>When the message says “Press any key to continue”, the job has completed</li>
-  <li>Navigate to International: S:\Relias\Utilities US: C:\Relias\Utilities</li>
-  <li>Verify the Modified Date of the files is within 2 days (the date should match the date that we copied the files to the server, not the date that the batch file was executed)</li>
-</ol>
-<strong>Internal Tools</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
-  <li>Run IIS Manager</li>
-  <li>In the left-hand pane, expand the name of the server <strong class="orange">[{{getServers(this.internalToolsServers)}}]</strong></li>
-  <li>Expand Sites.</li>
-  <li>Click on <strong class="orange">[{{getServers(this.internalToolsSites)}}]</strong></li>
-  <li>Click on 'Basic Settings...' on the right side of the screen</li>
-  <li>Verify the popup shows the Site name as <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
-  <li>Click on the ellipsis next to the text box below Physical Path.</li>
-  <li>Select the folder <span class="orange">[{{this.internalToolsReleaseNumber}}]</span></li>
-  <li>Click Ok.</li>
-  <li>Click Ok.</li>
-</ol>
-<strong>RLMS Reports</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
-  <li>Open folder International: “S:\Relias\reports-drop” US: “C:\Relias\reports-drop”</li>
-  <li>Right-click on “.\DeployReports.ps1” and Run with PowerShell</li>
-</ol>
-<div *ngIf="(generateUK || generateCN || generateUS)">
-<strong><i>Internal Reports (only deployed in US and UK)</i></strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{this.utilityServers[this.UK]}}, {{this.utilityServers[this.US]}}]</strong></li>
-  <li>Open folder International: "S:\Relias\internal-reports-drop" US: "C:\Relias\internal-reports-drop"</li>
-  <li>Right-click on ".\DeployInternalReportsUS.ps1" and Run with PowerShell</li>
-</ol>
-</div>
-<div *ngIf="(generateUK || generateCN || generateUS)">
-  <strong>Notify #NextRelease channel that the release has been deployed to specific environment</strong>
-  <br />
-  <br />
-  <strong>Update CHM ticket to include actual release time</strong>
-  <br />
-  <br />
-  <a href="https://relias.atlassian.net/browse/{{this.chmTicket}}">{{this.chmTicket}}</a>
-</div>
 
-<br />
-<br />
-<strong>Clean up old release folders (leave current and most recent previous folder in place)</strong>
-<ol type="1">
-  <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
-  <li>Open RLMS Server Tool from desktop</li>
-  <li>
-    In the top box (titled RLMS Website Files), if there are more than two releases listed (current and most recent previous release):
-    <ol type="a">
-      <li>Right click on the oldest version </li>
-      <li>Select Delete.</li>
-      <li>In the window that opens, click Run and wait for it to delete the files. </li>
-      <li>Close the window.</li>
-      <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+  <div *ngIf="this.release.legacyRelease !== ''">
+    <strong>Website</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the top box (titled RLMS Website Files), right click on <strong class="orange">[{{this.release.legacyRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
     </ol>
-  </li>
-  <li>
-    In the second box (titled RLMS Web Services Files), if there are more than two releases listed (current and most recent previous release):
-    <ol type="a">
-      <li>Right click on the oldest version </li>
-      <li>Select Delete.</li>
-      <li>In the window that opens, click Run and wait for it to delete the files. </li>
-      <li>Close the window.</li>
-      <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
-    </ol>
-  </li>
-  <li>
-    In the third from the bottom box (titled RLMS API Files), if there are more than two releases listed (current and most recent previous release):
-    <ol type="a">
-      <li>Right click on the oldest version </li>
-      <li>Select Delete.</li>
-      <li>In the window that opens, click Run and wait for it to delete the files. </li>
-      <li>Close the window.</li>
-      <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
-    </ol>
-  </li>
-  <li>
-    In the second from the bottom box (titled RLMS Angular Website Files), if there are more than two releases listed (current and most recent previous release):
-    <ol type="a">
-      <li>Right click on the oldest version </li>
-      <li>Select Delete.</li>
-      <li>In the window that opens, click Run and wait for it to delete the files. </li>
-      <li>Close the window.</li>
-      <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
-    </ol>
-  </li>
-  <li>
-    In the bottom box (titled Enrollments Api Files), if there are more than two releases listed (current and most recent previous release):
-    <ol type="a">
-      <li>Right click on the oldest version </li>
-      <li>Select Delete.</li>
-      <li>In the window that opens, click Run and wait for it to delete the files. </li>
-      <li>Close the window.</li>
-      <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
-    </ol>  
-  </li>
-  <li>
-    In the bottom box (titled Reporting Service Files), if there are more than two releases listed (current and most recent previous release):
-    <ol type="a">
-      <li>Right click on the oldest version </li>
-      <li>Select Delete.</li>
-      <li>In the window that opens, click Run and wait for it to delete the files. </li>
-      <li>Close the window.</li>
-      <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
-    </ol> 
-  </li>
-</ol>
+  </div>
 
-<div *ngIf="(generateUK || generateCN || generateUS)">
-  <strong>For US only if Utilities were deployed during the release:</strong>
-  <br />
-  Re-enable and Run the long-running Utility:
+  <div *ngIf="this.release.apiRelease !== ''">
+    <strong>API</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the third from the bottom box (titled RLMS API Files), right click on <strong class="orange">[{{this.release.apiRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
+    </ol>
+  </div>
+
+  <div *ngIf="this.release.angularRelease !== ''">
+    <strong>RLMS Angular Website</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the third from the bottom box (titled RLMS Angular Website Files), right click on <strong class="orange">[{{this.release.angularRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
+    </ol>
+  </div>
+
+  <div *ngIf="this.release.enrollmentServiceRelease !== ''">
+    <strong>Enrollments Api Files</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the third from the bottom box (titled Enrollments Api Files), right click on <strong class="orange">[{{this.release.enrollmentServiceRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
+    </ol>
+  </div>
+
+  <div *ngIf="this.release.reportingServiceRelease !== ''">
+    <strong>Reporting Service Files</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the third from the bottom box (titled Reporting Service Files), right click on <strong class="orange">[{{this.release.reportingServiceRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
+    </ol>
+  </div>
+
+  <div *ngIf="this.release.learningServiceRelease !== ''">
+    <strong>Learning Service Files</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the third from the bottom box (titled Learning Service Files), right click on <strong class="orange">[{{this.release.learningServiceRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
+    </ol>
+  </div>
+
+  <strong>Refresh Cache</strong>
   <ol type="1">
-    <li>Remote into <strong class="orange">[{{this.utilityServers[this.US]}}]</strong></li>
-    <li>Open Task Scheduler (Start > Task Scheduler)</li>
-    <li>Click on Task Scheduler Library in the left panel</li>
-    <li>Locate the task named RLMS.Utilities BoosterQuestionsLearnerEmail</li>
-    <li>Right click on it and select Enable</li>
-    <li>Right click on it and select Run</li>
+    <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+    <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+    <li>Click button labeled <strong>'Clear Redis Cache - Website'</strong> (top row of buttons, all the way to the right) </li>
+    <li>Click button labeled <strong>'Clear Redis Cache - API'</strong> (second row of buttons, all the way to the right) </li>
   </ol>
-</div>
 
-<strong>Steps to Verify Release:</strong>
+  <div *ngIf="this.release.legacyRelease !== ''">
+    <strong>Web Services</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+      <li>Open RLMS Server Tool from desktop (right-click, run as administrator if you get an error)</li>
+      <li>In the third from the bottom box (titled RLMS Web Services Files), right click on <strong class="orange">[{{this.release.legacyRelease}}]</strong></li>
+      <li>Click Set IIS Path</li>
+      <li>In the window that opens, click Run</li>
+      <li>When that is complete, close the window</li>
+      <li>Click the refresh link to the right of the box</li>
+      <li>Verify the cells are yellow for the newest release on all servers</li>
+    </ol>
+  </div>
+
+  <strong>Database part 2:</strong>
+  <br />
+  <i>(if there are scripts that need to be run after the Website is deployed, list those here)</i>
+  <br />
+  <br />
+
+  <div *ngIf="this.release.newUtilityName.length > 0">
+    <strong>Create new Utilities:</strong>
+    <br />
+    *If there are new utilities to create please list them below along with when they should be scheduled to run:
+    <br />
+    {{this.release.newUtilityName}} - {{this.release.newUtilitySchedule}}
+    <br />
+    <strong>Steps to create new utility</strong>
+    <ol type="1">
+      <li>Open Task Scheduler, click Create Task...</li>
+      <li>Enter name of the task, should be RLMS.Utility {{this.release.newUtilityName}}</li>
+      <li>Click change user or group, for user name type in storwebde and then check names. It should recognize the user, click OK.</li>
+      <li>Select 'Run whether user is logged on or not'</li>
+      <li>Create a trigger to run at the specified time above.</li>
+      <li>
+        Create an action to run the utility
+        <ol type="a">
+          <li>Action should be Start a Program</li>
+          <li>Browse program/script for S:\Relias\Utilities\RLMS.Utilities.exe</li>
+          <li>Add argument with the name of the utility</li>
+          <li>Click OK</li>
+        </ol>
+      </li>
+      <li>Click OK to save the new utility, you will be prompted to enter the credentials for the utility user. This password is: +74hEARHo1bBXjs+XjHzmMDB5uYZtpj1nI+95cF5ZBlZc4p7Byw9vkAy/R22mudz4r9cdPjmZ9Ly2LqYWFdVZg==</li>
+    </ol>
+  </div>
+
+  <strong>Deploy Utilities</strong>
+  <ol type="1">
+    <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+    <li>Navigate to International: S:\Relias US: C:\Relias</li>
+    <li>Right click on ‘Deploy Utilities’.</li>
+    <li>Click ‘Run as administrator’</li>
+    <li>When the message says “Press any key to continue”, the job has completed</li>
+    <li>Navigate to International: S:\Relias\Utilities US: C:\Relias\Utilities</li>
+    <li>Verify the Modified Date of the files is within 2 days (the date should match the date that we copied the files to the server, not the date that the batch file was executed)</li>
+  </ol>
+
+  <strong>Internal Tools</strong>
+  <ol type="1">
+    <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+    <li>Run IIS Manager</li>
+    <li>In the left-hand pane, expand the name of the server <strong class="orange">[{{getServers(this.internalToolsServers)}}]</strong></li>
+    <li>Expand Sites.</li>
+    <li>Click on <strong class="orange">[{{getServers(this.internalToolsSites)}}]</strong></li>
+    <li>Click on 'Basic Settings...' on the right side of the screen</li>
+    <li>Verify the popup shows the Site name as <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+    <li>Click on the ellipsis next to the text box below Physical Path.</li>
+    <li>Select the folder <span class="orange">[{{this.release.internalToolsRelease}}]</span></li>
+    <li>Click Ok.</li>
+    <li>Click Ok.</li>
+  </ol>
+
+  <strong>RLMS Reports</strong>
+  <ol type="1">
+    <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+    <li>Open folder International: “S:\Relias\reports-drop” US: “C:\Relias\reports-drop”</li>
+    <li>Right-click on “.\DeployReports.ps1” and Run with PowerShell</li>
+  </ol>
+
+  <div *ngIf="(generateUK || generateCN || generateUS)">
+    <strong><i>Internal Reports (only deployed in US and UK)</i></strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{this.utilityServers[this.UK]}}, {{this.utilityServers[this.US]}}]</strong></li>
+      <li>Open folder International: "S:\Relias\internal-reports-drop" US: "C:\Relias\internal-reports-drop"</li>
+      <li>Right-click on ".\DeployInternalReportsUS.ps1" and Run with PowerShell</li>
+    </ol>
+  </div>
+
+  <div *ngIf="(generateUK || generateCN || generateUS)">
+    <strong>Notify #NextRelease channel that the release has been deployed to specific environment</strong>
+    <br />
+    <br />
+    <strong>Update CHM ticket to include actual release time</strong>
+    <br />
+    <br />
+    <a href="https://relias.atlassian.net/browse/{{this.release.chmTicket}}">{{this.release.chmTicket}}</a>
+  </div>
+
+  <br />
+  <br />
+
+  <strong>Clean up old release folders (leave current and most recent previous folder in place)</strong>
+  <ol type="1">
+    <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
+    <li>Open RLMS Server Tool from desktop</li>
+    <li>
+      In the top box (titled RLMS Website Files), if there are more than two releases listed (current and most recent previous release):
+      <ol type="a">
+        <li>Right click on the oldest version </li>
+        <li>Select Delete.</li>
+        <li>In the window that opens, click Run and wait for it to delete the files. </li>
+        <li>Close the window.</li>
+        <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+      </ol>
+    </li>
+    <li>
+      In the second box (titled RLMS Web Services Files), if there are more than two releases listed (current and most recent previous release):
+      <ol type="a">
+        <li>Right click on the oldest version </li>
+        <li>Select Delete.</li>
+        <li>In the window that opens, click Run and wait for it to delete the files. </li>
+        <li>Close the window.</li>
+        <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+      </ol>
+    </li>
+    <li>
+      In the third from the bottom box (titled RLMS API Files), if there are more than two releases listed (current and most recent previous release):
+      <ol type="a">
+        <li>Right click on the oldest version </li>
+        <li>Select Delete.</li>
+        <li>In the window that opens, click Run and wait for it to delete the files. </li>
+        <li>Close the window.</li>
+        <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+      </ol>
+    </li>
+    <li>
+      In the second from the bottom box (titled RLMS Angular Website Files), if there are more than two releases listed (current and most recent previous release):
+      <ol type="a">
+        <li>Right click on the oldest version </li>
+        <li>Select Delete.</li>
+        <li>In the window that opens, click Run and wait for it to delete the files. </li>
+        <li>Close the window.</li>
+        <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+      </ol>
+    </li>
+    <li>
+      In the bottom box (titled Enrollments Api Files), if there are more than two releases listed (current and most recent previous release):
+      <ol type="a">
+        <li>Right click on the oldest version </li>
+        <li>Select Delete.</li>
+        <li>In the window that opens, click Run and wait for it to delete the files. </li>
+        <li>Close the window.</li>
+        <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+      </ol>  
+    </li>
+    <li>
+      In the bottom box (titled Reporting Service Files), if there are more than two releases listed (current and most recent previous release):
+      <ol type="a">
+        <li>Right click on the oldest version </li>
+        <li>Select Delete.</li>
+        <li>In the window that opens, click Run and wait for it to delete the files. </li>
+        <li>Close the window.</li>
+        <li>Click Refresh next to the top box title to make sure it deleted from all servers.</li>
+      </ol> 
+    </li>
+  </ol>
+
+  <div *ngIf="(generateUK || generateCN || generateUS)">
+    <strong>For US only if Utilities were deployed during the release:</strong>
+    <br />
+    Re-enable and Run the long-running Utility:
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{this.utilityServers[this.US]}}]</strong></li>
+      <li>Open Task Scheduler (Start > Task Scheduler)</li>
+      <li>Click on Task Scheduler Library in the left panel</li>
+      <li>Locate the task named RLMS.Utilities BoosterQuestionsLearnerEmail</li>
+      <li>Right click on it and select Enable</li>
+      <li>Right click on it and select Run</li>
+    </ol>
+  </div>
+
+  <strong>Steps to Verify Release:</strong>
+</div>
