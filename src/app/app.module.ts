@@ -12,7 +12,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { Step3Component } from './step3/step3.component';
 import { StartComponent } from './start/start.component';
-import { ReleaseService } from './shared/release.service';
+import { ReleaseService } from './shared/services/release.service';
 import { Step4Component } from './step4/step4.component';
 
 const appRoutes: Routes = [

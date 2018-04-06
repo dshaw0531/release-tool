@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ReleaseService } from '../shared/release.service';
+import { ReleaseService } from '../shared/services/release.service';
+import { Release } from '../shared/models/release';
 
 @Component({
   selector: 'app-step1',
@@ -8,18 +9,20 @@ import { ReleaseService } from '../shared/release.service';
   styleUrls: ['./step1.component.css']
 })
 export class Step1Component implements OnInit {
-  public release: any;
+  public release: Release = new Release();
+  existingRelease = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private releaseService: ReleaseService) {
-    this.releaseService = releaseService;
-    this.release = {
-      name: '',
-    };
-    this.route.params.subscribe( params => this.release.name = params['id']);
+   this.route.params.subscribe(params => this.existingRelease = params['id']);
+    if (this.existingRelease.length > 0 ) {
+      this.release.name = this.existingRelease;
+    }
   }
 
   nextClick = function() {
-    this.releaseService.addRelease(this.release);
+    if (this.existingRelease.length === 0) {
+      this.save();
+    }
     this.router.navigate(['step2/', this.release.name]);
   };
 
@@ -28,6 +31,9 @@ export class Step1Component implements OnInit {
   };
 
   ngOnInit() {
-    // this.release = this.releaseService.getRelease(this.release.name);
+  }
+
+  save() {
+    this.releaseService.createRelease(this.release);
   }
 }

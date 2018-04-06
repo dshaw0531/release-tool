@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ReleaseService } from '../shared/release.service';
+import { ReleaseService } from '../shared/services/release.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,6 +20,15 @@ export class StartComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.releaseService.getReleases().valueChanges().subscribe( data => this.releases = data);
+    this.getReleasesList();
+  }
+
+  getReleasesList() {
+    // Use snapshotChanges().map() to store the key
+    this.releaseService.getReleasesList().snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+    }).subscribe(releasesData => {
+      this.releases = releasesData;
+    });
   }
 }
