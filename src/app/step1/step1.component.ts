@@ -9,28 +9,42 @@ import { Release } from '../shared/models/release';
   styleUrls: ['./step1.component.css']
 })
 export class Step1Component implements OnInit {
-  public release: Release = new Release();
+  public release: any;
   existingRelease = '';
 
   constructor(private route: ActivatedRoute, private router: Router, private releaseService: ReleaseService) {
    this.route.params.subscribe(params => this.existingRelease = params['id']);
-    if (this.existingRelease.length > 0 ) {
-      this.release.name = this.existingRelease;
-    }
+   this.release = {
+     name: ''
+   };
   }
 
   nextClick = function() {
-    if (this.existingRelease.length === 0) {
-      this.save();
+    if (this.existingRelease) {
+      this.release.key = this.existingRelease;
     }
-    this.router.navigate(['step2/', this.release.name]);
+    if (this.release.key) {
+      this.releaseService.updateRelease(this.release.key, this.release);
+    } else {
+      console.log(this.release);
+      this.releaseService.createRelease(this.release).Object().map(change => {
+        return change.map(c => ({ key: c.payload.key, ...c.payload.val() }));
+      }).subscribe(releaseData => {
+        this.release = releaseData;
+      });
+    }
+    console.log(this.release);
+    console.log(this.release.key);
+    this.router.navigate(['step2/', this.release.key]);
   };
 
   backClick = function() {
-    this.router.navigate(['start', this.release.name ? this.release.name : '']);
+    this.release.key = this.existingRelease;
+    this.router.navigate(['start', this.release.key ? this.release.key : '']);
   };
 
   ngOnInit() {
+    this.releaseService.getRelease(this.existingRelease).subscribe(re => this.release = re);
   }
 
   save() {
