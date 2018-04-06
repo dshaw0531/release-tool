@@ -29,7 +29,7 @@ export class GenerateWordDocComponent implements OnInit {
   generateUS: boolean;
 
   releaseKey: string;
-  release: any;
+  release: Release;
 
   constructor(private route: ActivatedRoute, private router: Router, private releaseService: ReleaseService) {
     this.router = router;
@@ -38,8 +38,9 @@ export class GenerateWordDocComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.release = new Release();
     this.releaseService.getRelease(this.releaseKey).subscribe(release => {
-      this.release = release;
+      this.release = <Release>release;
     });
 
     this.generateDE = false;

@@ -71,31 +71,31 @@
     <li>
       Remote into <span style="font-weight: bold;" class="orange">[{{getServers(this.sqlServers)}}]</span> and open SSMS <strong>as an administrator.</strong> Connect to <strong class="orange">[{{getServers(this.sqlConnections)}}]</strong> and execute the following scripts:
       <ol type="a">
-        <li class="gold" *ngIf="this.release.lmsMigrationScript.length > 0">{{this.release.lmsMigrationScript}}</li>
-        <li class="gold" *ngIf="this.release.lmsLogMigrationScript.length > 0">{{this.release.lmsLogMigrationScript}}</li>
-        <li class="gold" *ngIf="this.release.lmsAuditChangesScript.length > 0">{{this.release.lmsAuditChangesScript}} (execute with SQLCMD on)</li>
-        <li class="gold" *ngIf="this.release.lmsTriggersChangesScript.length > 0">{{this.release.lmsTriggersChangesScript}} (execute with SQLCMD on)</li>
-        <li class="gold" *ngIf="this.release.lmsProcChangesScript.length > 0">{{this.release.lmsProcChangesScript}} (execute with SQLCMD on)</li>
-        <li class="gold" *ngIf="this.release.lmsLogProcChangesScript.length > 0">{{this.release.lmsLogProcChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsMigrationScript && this.release.lmsMigrationScript.length > 0">{{this.release.lmsMigrationScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsLogMigrationScript && this.release.lmsLogMigrationScript.length > 0">{{this.release.lmsLogMigrationScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsTriggersChangesScript && this.release.lmsTriggersChangesScript.length > 0">{{this.release.lmsAuditChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsTriggersChangesScript && this.release.lmsTriggersChangesScript.length > 0">{{this.release.lmsTriggersChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsProcChangesScript && this.release.lmsProcChangesScript.length > 0">{{this.release.lmsProcChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsLogProcChangesScript && this.release.lmsLogProcChangesScript.length > 0">{{this.release.lmsLogProcChangesScript}} (execute with SQLCMD on)</li>
       </ol>
     </li>
     <li>
       Change the connection to <strong class="orange">[{{getServers(this.reportConnections)}}]</strong> and execute the following scripts:
       <ol type="a">
-        <li class="gold" *ngIf="this.release.lmsReportSchemaScript.length > 0">{{this.release.lmsReportSchemaScript}}</li>
-        <li class="gold" *ngIf="this.release.lmsReportProcChangesScript.length > 0">{{this.release.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsReportSchemaScript && this.release.lmsReportSchemaScript.length > 0">{{this.release.lmsReportSchemaScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsReportProcChangesScript && this.release.lmsReportProcChangesScript.length > 0">{{this.release.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
       </ol>
     </li>
     <li>
       Change the connection to <strong class="orange">[{{getServers(this.report2Connections).substr(0, getServers(this.report2Connections).length - 2)}}]</strong> and execute the following scripts:
       <ol type="a">
-        <li class="gold" *ngIf="this.release.lmsReportSchemaScript.length > 0">{{this.release.lmsReportSchemaScript}}</li>
-        <li class="gold" *ngIf="this.release.lmsReportProcChangesScript.length > 0">{{this.release.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
+        <li class="gold" *ngIf="this.release.lmsReportSchemaScript && this.release.lmsReportSchemaScript.length > 0">{{this.release.lmsReportSchemaScript}}</li>
+        <li class="gold" *ngIf="this.release.lmsReportProcChangesScript && this.release.lmsReportProcChangesScript.length > 0">{{this.release.lmsReportProcChangesScript}} (execute with SQLCMD on)</li>
       </ol>
     </li>
   </ol>
 
-  <div *ngIf="this.release.legacyRelease !== ''">
+  <div *ngIf="this.release.legacyRelease && this.release.legacyRelease !== ''">
     <strong>Website</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -109,7 +109,7 @@
     </ol>
   </div>
 
-  <div *ngIf="this.release.apiRelease !== ''">
+  <div *ngIf="this.release.apiRelease && this.release.apiRelease !== ''">
     <strong>API</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -123,7 +123,7 @@
     </ol>
   </div>
 
-  <div *ngIf="this.release.angularRelease !== ''">
+  <div *ngIf="this.release.angularRelease && this.release.angularRelease !== ''">
     <strong>RLMS Angular Website</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -137,7 +137,7 @@
     </ol>
   </div>
 
-  <div *ngIf="this.release.enrollmentServiceRelease !== ''">
+  <div *ngIf="this.release.enrollmentServiceRelease && this.release.enrollmentServiceRelease !== ''">
     <strong>Enrollments Api Files</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -151,7 +151,7 @@
     </ol>
   </div>
 
-  <div *ngIf="this.release.reportingServiceRelease !== ''">
+  <div *ngIf="this.release.reportingServiceRelease && this.release.reportingServiceRelease !== ''">
     <strong>Reporting Service Files</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -165,7 +165,7 @@
     </ol>
   </div>
 
-  <div *ngIf="this.release.learningServiceRelease !== ''">
+  <div *ngIf="this.release.learningServiceRelease && this.release.learningServiceRelease !== ''">
     <strong>Learning Service Files</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -187,7 +187,7 @@
     <li>Click button labeled <strong>'Clear Redis Cache - API'</strong> (second row of buttons, all the way to the right) </li>
   </ol>
 
-  <div *ngIf="this.release.legacyRelease !== ''">
+  <div *ngIf="this.release.legacyRelease && this.release.legacyRelease !== ''">
     <strong>Web Services</strong>
     <ol type="1">
       <li>Remote into <strong class="orange">[{{getServers(this.webServers)}}]</strong></li>
@@ -207,7 +207,7 @@
   <br />
   <br />
 
-  <div *ngIf="this.release.newUtilityName.length > 0">
+  <div *ngIf="this.release.newUtilityName && this.release.newUtilityName.length > 0">
     <strong>Create new Utilities:</strong>
     <br />
     *If there are new utilities to create please list them below along with when they should be scheduled to run:
@@ -245,20 +245,22 @@
     <li>Verify the Modified Date of the files is within 2 days (the date should match the date that we copied the files to the server, not the date that the batch file was executed)</li>
   </ol>
 
-  <strong>Internal Tools</strong>
-  <ol type="1">
-    <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
-    <li>Run IIS Manager</li>
-    <li>In the left-hand pane, expand the name of the server <strong class="orange">[{{getServers(this.internalToolsServers)}}]</strong></li>
-    <li>Expand Sites.</li>
-    <li>Click on <strong class="orange">[{{getServers(this.internalToolsSites)}}]</strong></li>
-    <li>Click on 'Basic Settings...' on the right side of the screen</li>
-    <li>Verify the popup shows the Site name as <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
-    <li>Click on the ellipsis next to the text box below Physical Path.</li>
-    <li>Select the folder <span class="orange">[{{this.release.internalToolsRelease}}]</span></li>
-    <li>Click Ok.</li>
-    <li>Click Ok.</li>
-  </ol>
+  <div *ngIf="this.release.internalToolsRelease && this.release.internalToolsRelease !== ''">
+    <strong>Internal Tools</strong>
+    <ol type="1">
+      <li>Remote into <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+      <li>Run IIS Manager</li>
+      <li>In the left-hand pane, expand the name of the server <strong class="orange">[{{getServers(this.internalToolsServers)}}]</strong></li>
+      <li>Expand Sites.</li>
+      <li>Click on <strong class="orange">[{{getServers(this.internalToolsSites)}}]</strong></li>
+      <li>Click on 'Basic Settings...' on the right side of the screen</li>
+      <li>Verify the popup shows the Site name as <strong class="orange">[{{getServers(this.utilityServers)}}]</strong></li>
+      <li>Click on the ellipsis next to the text box below Physical Path.</li>
+      <li>Select the folder <span class="orange">[{{this.release.internalToolsRelease}}]</span></li>
+      <li>Click Ok.</li>
+      <li>Click Ok.</li>
+    </ol>
+  </div>
 
   <strong>RLMS Reports</strong>
   <ol type="1">
