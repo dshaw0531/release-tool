@@ -21,6 +21,10 @@ export class ReleaseService {
     return this.releaseRef;
   }
 
+  getRelease(releaseKey: string): any {
+    return this.db.object<Release>(`/releases/${releaseKey}`).valueChanges();
+  }
+
   deleteRelease(key: string) {
     this.releaseRef.remove(key).catch(error => this.handleError(error));
   }
