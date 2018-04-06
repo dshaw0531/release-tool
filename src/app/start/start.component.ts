@@ -11,7 +11,6 @@ export class StartComponent implements OnInit {
   public releases: any[];
 
   constructor( private releaseService: ReleaseService, private router: Router ) {
-    this.releaseService = releaseService;
     this.releases = [];
    }
 
