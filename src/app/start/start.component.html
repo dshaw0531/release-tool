@@ -3,7 +3,7 @@
   <h5>Select Existing Release</h5>
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let release of releases">
-      <button (click)="nextClick(release.name);"><b>{{ release.name }}</b></button>
+      <button (click)="nextClick(release.key);"><b>{{ release.name }}</b></button>
     </li>
   </ul>
 </div>
