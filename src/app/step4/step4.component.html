@@ -1,0 +1,94 @@
+<div style="margin: 0 2% 5% 2%">
+  <button (click)="backClick();" class="btn btn-default" style="margin-bottom:1%">Back to Step 3</button>
+  <br />
+  <h5>Enter Release Information:</h5>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">Release Owner:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.releaseOwner" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">Release Owner Contact:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.contactInfo" value="(email/phone number)"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">CHM Ticket:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.chmTicket" value="CHM-" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">RLMS Legacy Website:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.legacyRelease" value="release-"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">RLMS Angular Website:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.angularRelease" value="release-"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">RLMS API:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.apiRelease" value="release-"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">Internal Tools:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.internalToolsRelease" value="release-"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">Enrollment Service:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.enrollmentServiceRelease" value="release-"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">Reporting Service:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.reportingServiceRelease" value="release-"/></div>
+    </div>
+    <div class="row">
+      <div class="col-3">Learning Service:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.learningServiceRelease" value="release-"/></div>
+    </div>
+  </div>
+  <h5>Enter Script Information:</h5>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">LMS Migration Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsMigrationScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMS Proc Changes Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsProcChangesScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMSLog Migration Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsLogMigrationScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMSLog Proc Changes Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsLogProcChangesScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMSReport Schema Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsReportSchemaScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMSReport Proc Changes Script: </div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsReportProcChangesScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMSAudit Changes Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsAuditChangesScript" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">LMS Triggers Changes Script:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.lmsTriggersChangesScript" /></div>
+    </div>
+  </div>
+  <h5>Enter New Utility Information:</h5>
+  <div class="container">
+    <div class="row">
+      <div class="col-3">Name of New Utility:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.newUtilityName" /></div>
+    </div>
+    <div class="row">
+      <div class="col-3">Time to Schedule new Utility:</div>
+      <div class="col-9"><input [(ngModel)]="this.release.newUtilitySchedule" /></div>
+    </div>
+  </div>
+  <button (click)="nextClick();" class="btn btn-default">Generate Document</button>
+</div>

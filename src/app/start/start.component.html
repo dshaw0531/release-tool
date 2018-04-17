@@ -1,0 +1,9 @@
+<div style="margin: 0 2%">
+  <button (click)="nextClick('');" class="btn btn-default" style="margin-bottom:1%">Create New Release</button>
+  <h5>Select Existing Release</h5>
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let release of releases">
+      <button (click)="nextClick(release.key);"><b>{{ release.name }}</b></button>
+    </li>
+  </ul>
+</div>
